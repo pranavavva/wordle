@@ -40,7 +40,8 @@
       {
         "props": false
       }
-    ]
+    ],
+    "no-promise-executor-return": "off"
   },
   "settings": {
     "import/resolver": {
