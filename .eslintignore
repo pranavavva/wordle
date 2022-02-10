@@ -1,0 +1,5 @@
+*.css
+*.svg
+build/
+node_modules/
+serviceWorker.ts
