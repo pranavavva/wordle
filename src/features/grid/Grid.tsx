@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { GridRowType } from 'app/types';
 import { MAX_GUESSES } from 'utils/constants';
-import GridRow from './GridRow';
+import { Grid } from '@mui/material';
+import WordleGridRow from './GridRow';
 
 type GridProps = {
   guesses: string[];
@@ -9,15 +10,15 @@ type GridProps = {
   solution: string;
 };
 
-export default function Grid(props: GridProps): JSX.Element {
+export default function WordleGrid(props: GridProps): JSX.Element {
   const { guesses, currentGuess, solution } = props;
 
   const numEmptyRows = Math.max(0, MAX_GUESSES - guesses.length);
 
   return (
-    <div>
+    <Grid container spacing={2} direction='column' alignItems='center'>
       {guesses.map((guess, index) => (
-        <GridRow
+        <WordleGridRow
           key={index}
           type={GridRowType.COMPLETED}
           guess={guess}
@@ -25,7 +26,7 @@ export default function Grid(props: GridProps): JSX.Element {
         />
       ))}
       {guesses.length < MAX_GUESSES && (
-        <GridRow
+        <WordleGridRow
           key={guesses.length}
           type={GridRowType.CURRENT}
           guess={currentGuess}
@@ -33,13 +34,13 @@ export default function Grid(props: GridProps): JSX.Element {
         />
       )}
       {numEmptyRows > 0 && (
-        <GridRow
+        <WordleGridRow
           key={guesses.length + 1}
           type={GridRowType.EMPTY}
           guess=''
           solution={solution}
         />
       )}
-    </div>
+    </Grid>
   );
 }

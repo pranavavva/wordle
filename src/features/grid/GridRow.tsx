@@ -2,7 +2,8 @@ import { CellStatus, GridRowType } from 'app/types';
 import * as React from 'react';
 import { MAX_WORD_LENGTH } from 'utils/constants';
 import getGuessStatuses from 'utils/guess';
-import Cell from './Cell';
+import { Grid } from '@mui/material';
+import WordleCell from './Cell';
 
 type GridRowProps = {
   type: GridRowType;
@@ -10,50 +11,58 @@ type GridRowProps = {
   solution: string;
 };
 
-export default function GridRow(props: GridRowProps): JSX.Element {
+export default function WordleGridRow(props: GridRowProps): JSX.Element {
   const { type, guess, solution } = props;
 
   const cells = Array.from(Array(MAX_WORD_LENGTH));
+
+  let row: JSX.Element[];
 
   switch (type) {
     case GridRowType.COMPLETED: {
       const statuses = getGuessStatuses(guess, solution);
       const splitGuess = guess.split('');
+      row = cells.map((_, index) => (
+        <WordleCell
+          key={index}
+          letter={splitGuess[index]}
+          status={statuses[index]}
+        />
+      ));
 
-      return (
-        <div>
-          {cells.map((_, index) => (
-            <Cell
-              key={index}
-              letter={splitGuess[index]}
-              status={statuses[index]}
-            />
-          ))}
-        </div>
-      );
+      break;
     }
     case GridRowType.CURRENT: {
       const splitGuess = guess.split('');
       const emptyCells = Array.from(Array(MAX_WORD_LENGTH - splitGuess.length));
-      return (
-        <div>
-          {splitGuess.map((letter, index) => (
-            <Cell key={index} letter={letter} status={CellStatus.UNSUBMITTED} />
-          ))}
-          {emptyCells.map((_, index) => (
-            <Cell key={index} letter='' status={CellStatus.UNSUBMITTED} />
-          ))}
-        </div>
+      row = splitGuess.map((letter, index) => (
+        <WordleCell
+          key={index}
+          letter={letter}
+          status={CellStatus.UNSUBMITTED}
+        />
+      ));
+
+      row = row.concat(
+        emptyCells.map((_, index) => (
+          <WordleCell key={index} letter='' status={CellStatus.UNSUBMITTED} />
+        ))
       );
+      break;
     }
     case GridRowType.EMPTY: {
-      return (
-        <div>
-          {cells.map((_, index) => (
-            <Cell key={index} letter='' status={CellStatus.UNSUBMITTED} />
-          ))}
-        </div>
-      );
+      row = cells.map((_, index) => (
+        <WordleCell key={index} letter='' status={CellStatus.UNSUBMITTED} />
+      ));
+      break;
     }
   }
+
+  return (
+    <Grid item>
+      <Grid container spacing={2}>
+        {row}
+      </Grid>
+    </Grid>
+  );
 }

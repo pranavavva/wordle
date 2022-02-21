@@ -1,12 +1,12 @@
 export enum CellStatus {
-  CORRECT,
-  INCORRECT,
-  ABSENT,
-  UNSUBMITTED,
+  CORRECT = 'CORRECT',
+  INCORRECT = 'INCORRECT',
+  ABSENT = 'ABSENT',
+  UNSUBMITTED = 'UNSUBMITTED',
 }
 
 export enum GridRowType {
-  COMPLETED,
-  CURRENT,
-  EMPTY,
+  COMPLETED = 'COMPLETED',
+  CURRENT = 'CURRENT',
+  EMPTY = 'EMPTY',
 }

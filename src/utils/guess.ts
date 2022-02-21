@@ -37,5 +37,9 @@ export default function getGuessStatuses(
     }
   });
 
+  console.log(guess);
+  console.log(solution);
+  console.log(statuses);
+
   return statuses;
 }
