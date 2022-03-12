@@ -3,7 +3,7 @@ import * as React from 'react';
 import { MAX_WORD_LENGTH } from 'utils/constants';
 import getGuessStatuses from 'utils/guess';
 import { Grid } from '@mui/material';
-import WordleCell from './Cell';
+import WordleCell from './WordleCell';
 
 type GridRowProps = {
   type: GridRowType;

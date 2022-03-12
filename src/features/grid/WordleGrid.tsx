@@ -2,7 +2,7 @@ import * as React from 'react';
 import { GridRowType } from 'app/types';
 import { MAX_GUESSES } from 'utils/constants';
 import { Grid } from '@mui/material';
-import WordleGridRow from './GridRow';
+import WordleGridRow from './WordleGridRow';
 
 type GridProps = {
   guesses: string[];
