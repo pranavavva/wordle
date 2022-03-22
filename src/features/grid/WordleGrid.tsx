@@ -2,35 +2,27 @@ import * as React from 'react';
 import { GridRowType } from 'app/types';
 import { MAX_GUESSES } from 'utils/constants';
 import { Grid } from '@mui/material';
+import { useAppSelector, useAppDispatch } from 'app/hooks';
 import WordleGridRow from './WordleGridRow';
 
-type GridProps = {
-  guesses: string[];
-  currentGuess: string;
-  solution: string;
-};
+export default function WordleGrid(): JSX.Element {
+  const guesses = useAppSelector(state => state.guess.guesses);
+  const currentGuess = useAppSelector(state => state.guess.currentGuess);
 
-export default function WordleGrid(props: GridProps): JSX.Element {
-  const { guesses, currentGuess, solution } = props;
+  const dispatch = useAppDispatch();
 
   const numEmptyRows = Math.max(0, MAX_GUESSES - guesses.length);
 
   return (
     <Grid container spacing={2} direction='column' alignItems='center'>
       {guesses.map((guess, index) => (
-        <WordleGridRow
-          key={index}
-          type={GridRowType.COMPLETED}
-          guess={guess}
-          solution={solution}
-        />
+        <WordleGridRow key={index} type={GridRowType.COMPLETED} guess={guess} />
       ))}
       {guesses.length < MAX_GUESSES && (
         <WordleGridRow
           key={guesses.length}
           type={GridRowType.CURRENT}
           guess={currentGuess}
-          solution={solution}
         />
       )}
       {numEmptyRows > 0 && (
@@ -38,7 +30,6 @@ export default function WordleGrid(props: GridProps): JSX.Element {
           key={guesses.length + 1}
           type={GridRowType.EMPTY}
           guess=''
-          solution={solution}
         />
       )}
     </Grid>

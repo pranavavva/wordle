@@ -1,18 +1,20 @@
 import * as React from 'react';
 import { Grid } from '@mui/material';
 import getGuessStatuses from 'utils/guess';
-import Key from './Key';
+import Key from 'features/keyboard/Key';
+import { useAppSelector } from 'app/hooks';
 
 type KeyboardProps = {
   onChar: (value: string) => void;
   onDelete: () => void;
   onEnter: () => void;
-  guesses: string[];
-  solution: string;
 };
 
 export default function Keyboard(props: KeyboardProps): JSX.Element {
-  const { onChar, onDelete, onEnter, guesses, solution } = props;
+  const guesses = useAppSelector(state => state.guess.guesses);
+  const solution = useAppSelector(state => state.guess.solution);
+
+  const { onChar, onDelete, onEnter } = props;
 
   const charStatuses = guesses.flatMap(guess =>
     getGuessStatuses(guess, solution)
@@ -76,11 +78,21 @@ export default function Keyboard(props: KeyboardProps): JSX.Element {
       </Grid>
       <Grid item>
         <Grid container spacing={2} direction='row' justifyContent='center'>
+          <Grid item key='delete'>
+            <Key width={65} value='delete' onClick={onClick}>
+              DELETE
+            </Key>
+          </Grid>
           {row3.map(char => (
             <Grid item key={char}>
               <Key value={char} onClick={onClick} />
             </Grid>
           ))}
+          <Grid item key='enter'>
+            <Key width={65} value='enter' onClick={onClick}>
+              ENTER
+            </Key>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>

@@ -1,7 +1,10 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import guessReducer from 'app/slices/guessSlice';
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    guess: guessReducer,
+  },
 });
 
 export type AppDispatch = typeof store.dispatch;

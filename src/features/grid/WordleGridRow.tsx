@@ -3,16 +3,18 @@ import * as React from 'react';
 import { MAX_WORD_LENGTH } from 'utils/constants';
 import getGuessStatuses from 'utils/guess';
 import { Grid } from '@mui/material';
-import WordleCell from './WordleCell';
+import WordleCell from 'features/grid/WordleCell';
+import { useAppSelector } from 'app/hooks';
 
 type GridRowProps = {
   type: GridRowType;
   guess: string;
-  solution: string;
 };
 
 export default function WordleGridRow(props: GridRowProps): JSX.Element {
-  const { type, guess, solution } = props;
+  const { type, guess } = props;
+
+  const solution = useAppSelector(state => state.guess.solution);
 
   const cells = Array.from(Array(MAX_WORD_LENGTH));
 
