@@ -15,7 +15,6 @@ export default function WordleGridRow(props: GridRowProps): JSX.Element {
   const { type, guess } = props;
 
   const solution = useAppSelector(state => state.guess.solution);
-
   const cells = Array.from(Array(MAX_WORD_LENGTH));
 
   let row: JSX.Element[];

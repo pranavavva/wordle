@@ -12,7 +12,7 @@ type GuessState = {
 
 const initialState: GuessState = {
   currentGuess: '',
-  guesses: Array(MAX_GUESSES).fill(''),
+  guesses: [],
   solution: '',
   isGameOver: false,
   numGuesses: 0,
@@ -26,14 +26,20 @@ export const guessSlice = createSlice({
       state.currentGuess = action.payload;
     },
     addGuess: (state, action: PayloadAction<string>) => {
-      state.guesses[state.numGuesses] = action.payload;
+      state.guesses.push(action.payload);
       state.numGuesses += 1;
+      if (
+        state.numGuesses >= MAX_GUESSES ||
+        action.payload === state.solution
+      ) {
+        state.isGameOver = true;
+      }
     },
     setSolution: (state, action: PayloadAction<string>) => {
       state.solution = action.payload;
     },
     clearGuesses: state => {
-      state.guesses = Array(MAX_GUESSES).fill('');
+      state.guesses = [];
       state.numGuesses = 0;
     },
     setGameOver: state => {
