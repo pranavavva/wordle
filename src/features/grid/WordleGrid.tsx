@@ -2,14 +2,12 @@ import * as React from 'react';
 import { GridRowType } from 'app/types';
 import { MAX_GUESSES } from 'utils/constants';
 import { Grid } from '@mui/material';
-import { useAppSelector, useAppDispatch } from 'app/hooks';
+import { useAppSelector } from 'app/hooks';
 import WordleGridRow from './WordleGridRow';
 
 export default function WordleGrid(): JSX.Element {
   const guesses = useAppSelector(state => state.guess.guesses);
   const currentGuess = useAppSelector(state => state.guess.currentGuess);
-
-  const dispatch = useAppDispatch();
 
   const numEmptyRows = Math.max(0, MAX_GUESSES - guesses.length);
 
