@@ -33,6 +33,12 @@ export const guessSlice = createSlice({
         state.currentGuess === state.solution
       ) {
         state.isGameOver = true;
+
+        if (state.currentGuess === state.solution) {
+          alert("You've won!");
+        } else {
+          alert("You've lost!");
+        }
       }
       state.currentGuess = '';
     },

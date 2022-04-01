@@ -80,7 +80,11 @@ export default function Keyboard(props: KeyboardProps): JSX.Element {
         <Grid container spacing={2} direction='row' justifyContent='center'>
           {row2.map(char => (
             <Grid item key={char}>
-              <Key value={char} onClick={onClick} />
+              <Key
+                value={char}
+                onClick={onClick}
+                status={statuses[char.toUpperCase() ?? CellStatus.UNSUBMITTED]}
+              />
             </Grid>
           ))}
         </Grid>
@@ -94,7 +98,11 @@ export default function Keyboard(props: KeyboardProps): JSX.Element {
           </Grid>
           {row3.map(char => (
             <Grid item key={char}>
-              <Key value={char} onClick={onClick} />
+              <Key
+                value={char}
+                onClick={onClick}
+                status={statuses[char.toUpperCase() ?? CellStatus.UNSUBMITTED]}
+              />
             </Grid>
           ))}
           <Grid item key='enter'>

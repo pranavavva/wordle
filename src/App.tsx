@@ -47,7 +47,7 @@ export default function App(): JSX.Element {
   };
 
   return (
-    <Container maxWidth='md'>
+    <Container maxWidth='md' sx={{ paddingBottom: 10, paddingTop: 5 }}>
       <Typography variant='h2' component='h1' align='center' gutterBottom>
         Hello, Wordl
       </Typography>
