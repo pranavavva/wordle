@@ -14,7 +14,15 @@ export default function WordleGrid(): JSX.Element {
   const numEmptyRows = Math.max(0, MAX_GUESSES - numGuesses - 1);
 
   return (
-    <Grid container spacing={2} direction='column' alignItems='center'>
+    <Grid
+      container
+      spacing={2}
+      direction='column'
+      alignItems='center'
+      sx={{
+        marginBottom: '3rem',
+      }}
+    >
       {guesses.map((guess, index) => (
         <CompletedRow key={index} guess={guess} />
       ))}

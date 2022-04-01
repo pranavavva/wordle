@@ -17,13 +17,13 @@ export default function WordleCell(props: CellProps): JSX.Element {
       backgroundColor = 'green';
       break;
     case CellStatus.INCORRECT:
-      backgroundColor = 'orange';
+      backgroundColor = 'darkorange';
       break;
     case CellStatus.ABSENT:
-      backgroundColor = 'dimgray';
+      backgroundColor = '#3b3b3b';
       break;
     default:
-      backgroundColor = 'gainsboro';
+      backgroundColor = 'dimgray';
   }
 
   return (

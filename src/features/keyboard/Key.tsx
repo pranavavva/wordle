@@ -13,7 +13,46 @@ type KeyProps = {
 export default function Key(props: KeyProps): JSX.Element {
   const { children, value, width, status, onClick } = props;
 
-  return <Button onClick={() => onClick(value)}>{value}</Button>;
+  let backgroundColor: string = '';
+  let hoverBackgroundColor: string = '';
+
+  switch (status) {
+    case CellStatus.CORRECT:
+      backgroundColor = 'green';
+      hoverBackgroundColor = 'mediumseagreen';
+      break;
+    case CellStatus.INCORRECT:
+      backgroundColor = 'darkorange';
+      hoverBackgroundColor = 'orange';
+      break;
+    case CellStatus.ABSENT:
+      backgroundColor = '#3b3b3b';
+      hoverBackgroundColor = '#6b6b6b';
+      break;
+    case CellStatus.UNSUBMITTED:
+    default:
+      backgroundColor = 'dimgray';
+      hoverBackgroundColor = 'gray';
+  }
+
+  return (
+    <Button
+      onClick={() => onClick(value)}
+      sx={{
+        width,
+        height: '56px',
+        backgroundColor,
+        color: 'white',
+        fontWeight: 'bold',
+        textDecoration: 'none',
+        '&:hover': {
+          backgroundColor: hoverBackgroundColor,
+        },
+      }}
+    >
+      {value}
+    </Button>
+  );
 }
 
 // set default props

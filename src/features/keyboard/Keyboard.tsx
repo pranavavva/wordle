@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Grid } from '@mui/material';
-import getGuessStatuses from 'utils/guess';
+import { getStatuses } from 'utils/guess';
 import Key from 'features/keyboard/Key';
 import { useAppSelector } from 'app/hooks';
+import { CellStatus } from 'app/types';
 
 type KeyboardProps = {
   onChar: (value: string) => void;
@@ -16,9 +17,13 @@ export default function Keyboard(props: KeyboardProps): JSX.Element {
 
   const { onChar, onDelete, onEnter } = props;
 
-  const charStatuses = guesses.flatMap(guess =>
-    getGuessStatuses(guess, solution)
-  );
+  const statuses = getStatuses(guesses, solution);
+
+  // const charStatuses = guesses.flatMap(guess =>
+  //   getGuessStatuses(guess, solution)
+  // );
+
+  // console.log(charStatuses);
 
   const onClick = (value: string) => {
     if (value === 'enter') {
@@ -62,7 +67,11 @@ export default function Keyboard(props: KeyboardProps): JSX.Element {
         <Grid container spacing={2} direction='row' justifyContent='center'>
           {row1.map(char => (
             <Grid item key={char}>
-              <Key value={char} onClick={onClick} />
+              <Key
+                value={char}
+                onClick={onClick}
+                status={statuses[char.toUpperCase() ?? CellStatus.UNSUBMITTED]}
+              />
             </Grid>
           ))}
         </Grid>
