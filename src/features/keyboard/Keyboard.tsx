@@ -19,12 +19,7 @@ export default function Keyboard(props: KeyboardProps): JSX.Element {
 
   const statuses = getStatuses(guesses, solution);
 
-  // const charStatuses = guesses.flatMap(guess =>
-  //   getGuessStatuses(guess, solution)
-  // );
-
-  // console.log(charStatuses);
-
+  // given value of Key, call a handler
   const onClick = (value: string) => {
     if (value === 'enter') {
       onEnter();
@@ -50,19 +45,25 @@ export default function Keyboard(props: KeyboardProps): JSX.Element {
       }
     };
 
+    // add event listener
     window.addEventListener('keyup', listener);
 
+    // remove event listener on cleanup
     return () => {
       window.removeEventListener('keyup', listener);
     };
   }, [onChar, onDelete, onEnter]);
 
+  // Keyboard layout
+  // DELETE occurs before the first element of Row 3
+  // ENTER occurs after the last element of Row 3
   const row1 = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
   const row2 = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'];
   const row3 = ['Z', 'X', 'C', 'V', 'B', 'N', 'M'];
 
   return (
     <Grid container spacing={2} direction='column' alignItems='center'>
+      {/* Row 1 */}
       <Grid item>
         <Grid container spacing={2} direction='row' justifyContent='center'>
           {row1.map(char => (
@@ -76,6 +77,7 @@ export default function Keyboard(props: KeyboardProps): JSX.Element {
           ))}
         </Grid>
       </Grid>
+      {/* Row 2 */}
       <Grid item>
         <Grid container spacing={2} direction='row' justifyContent='center'>
           {row2.map(char => (
@@ -89,6 +91,7 @@ export default function Keyboard(props: KeyboardProps): JSX.Element {
           ))}
         </Grid>
       </Grid>
+      {/* Row 3 */}
       <Grid item>
         <Grid container spacing={2} direction='row' justifyContent='center'>
           <Grid item key='delete'>

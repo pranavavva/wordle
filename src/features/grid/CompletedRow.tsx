@@ -10,10 +10,9 @@ export type CompletedRowProps = {
 
 export default function CompletedRow(props: CompletedRowProps): JSX.Element {
   const { guess } = props;
+
   const solution = useAppSelector(state => state.guess.solution);
   const statuses = getGuessStatuses(guess, solution);
-
-  console.log(statuses);
 
   return (
     <Grid item>

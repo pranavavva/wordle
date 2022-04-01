@@ -16,6 +16,7 @@ export default function Key(props: KeyProps): JSX.Element {
   let backgroundColor: string = '';
   let hoverBackgroundColor: string = '';
 
+  // given the key status, set the background color
   switch (status) {
     case CellStatus.CORRECT:
       backgroundColor = 'green';

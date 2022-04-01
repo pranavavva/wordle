@@ -14,10 +14,12 @@ export default function App(): JSX.Element {
   const currentGuess = useAppSelector(state => state.guess.currentGuess);
   const numGuesses = useAppSelector(state => state.guess.numGuesses);
 
+  // when the App loads, reset the game state
   React.useEffect(() => {
     dispatch(clearGuesses());
   }, [dispatch]);
 
+  // handler for typing letters of a guess
   const onChar = (char: string) => {
     if (
       !isGameOver &&
@@ -28,6 +30,7 @@ export default function App(): JSX.Element {
     }
   };
 
+  // handler for removing letters of a guess
   const onDelete = () => {
     if (!isGameOver && currentGuess.length > 0 && numGuesses < MAX_GUESSES) {
       // remove the last character from the current guess
@@ -35,6 +38,7 @@ export default function App(): JSX.Element {
     }
   };
 
+  // handler for submitting a guess
   const onEnter = () => {
     if (
       !isGameOver &&

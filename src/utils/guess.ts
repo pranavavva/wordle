@@ -1,5 +1,10 @@
 import { CellStatus } from 'app/types';
 
+// for each guess, determine the statuses of the letters in that guess
+// for example, if the solution is HELLO and the guess is HOTEL,
+// the statuses would be:
+// [ CORRECT, INCORRECT, ABSENT, INCORRECT, INCORRECT ]
+// this function is used to color each row in the grid
 export default function getGuessStatuses(
   guess: string,
   solution: string
@@ -40,6 +45,21 @@ export default function getGuessStatuses(
   return statuses;
 }
 
+// creates a status dictionary for every letter submitted across all guesses
+// for example, if the guesses AUDIO and LIGHT are submitted, and the solution is HELLO,
+// the status dictionary would be:
+// {
+//   A: ABSENT
+//   U: ABSENT
+//   D: ABSENT
+//   I: ABSENT
+//   O: CORRECT (a guess had O in the correct spot)
+//   L: INCORRECT (L was in a guess, but never in the correct spot)
+//   G: ABSENT
+//   H: INCORRECT (same reasoning as L)
+//   T: ABSET
+// }
+// this function is used to color the keyboard keys
 export function getStatuses(
   guesses: string[],
   solution: string
