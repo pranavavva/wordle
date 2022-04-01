@@ -13,7 +13,7 @@ type GuessState = {
 const initialState: GuessState = {
   currentGuess: '',
   guesses: [],
-  solution: '',
+  solution: 'HELLO',
   isGameOver: false,
   numGuesses: 0,
 };
@@ -25,18 +25,16 @@ export const guessSlice = createSlice({
     setCurrentGuess: (state, action: PayloadAction<string>) => {
       state.currentGuess = action.payload;
     },
-    addGuess: (state, action: PayloadAction<string>) => {
-      state.guesses.push(action.payload);
+    addGuess: state => {
+      state.guesses.push(state.currentGuess);
       state.numGuesses += 1;
       if (
         state.numGuesses >= MAX_GUESSES ||
-        action.payload === state.solution
+        state.currentGuess === state.solution
       ) {
         state.isGameOver = true;
       }
-    },
-    setSolution: (state, action: PayloadAction<string>) => {
-      state.solution = action.payload;
+      state.currentGuess = '';
     },
     clearGuesses: state => {
       state.guesses = [];
@@ -48,12 +46,7 @@ export const guessSlice = createSlice({
   },
 });
 
-export const {
-  setCurrentGuess,
-  addGuess,
-  setSolution,
-  clearGuesses,
-  setGameOver,
-} = guessSlice.actions;
+export const { setCurrentGuess, addGuess, clearGuesses, setGameOver } =
+  guessSlice.actions;
 
 export default guessSlice.reducer;

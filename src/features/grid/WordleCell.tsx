@@ -9,29 +9,36 @@ type CellProps = {
 
 export default function WordleCell(props: CellProps): JSX.Element {
   const { letter, status } = props;
+
+  let backgroundColor: string = '';
+
+  switch (status) {
+    case CellStatus.CORRECT:
+      backgroundColor = 'green';
+      break;
+    case CellStatus.INCORRECT:
+      backgroundColor = 'orange';
+      break;
+    case CellStatus.ABSENT:
+      backgroundColor = 'dimgray';
+      break;
+    default:
+      backgroundColor = 'gainsboro';
+  }
+
   return (
-    <Grid item sx={{}}>
+    <Grid item>
       <Typography
         sx={{
           padding: '1rem',
-          color: (() => {
-            switch (status) {
-              case CellStatus.CORRECT:
-                return 'green';
-              case CellStatus.INCORRECT:
-                return 'orange';
-              case CellStatus.ABSENT:
-                return 'dimgray';
-              default:
-                return 'black';
-            }
-          })(),
-          // backgroundColor: 'black',
+          backgroundColor,
+          color: 'white',
           fontWeight: 'bold',
           fontSize: '2rem',
           width: 90,
           height: 90,
           border: '2px solid black',
+          borderRadius: '10px',
           textAlign: 'center',
         }}
       >

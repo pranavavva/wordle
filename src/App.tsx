@@ -4,15 +4,10 @@ import { Container, Typography } from '@mui/material';
 import WordleGrid from 'features/grid/WordleGrid';
 import Keyboard from 'features/keyboard/Keyboard';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import {
-  addGuess,
-  setCurrentGuess,
-  setSolution,
-  clearGuesses,
-} from 'app/slices/guessSlice';
+import { addGuess, setCurrentGuess, clearGuesses } from 'app/slices/guessSlice';
 import { MAX_GUESSES, MAX_WORD_LENGTH } from 'utils/constants';
 
-export default function App() {
+export default function App(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const isGameOver = useAppSelector(state => state.guess.isGameOver);
@@ -21,7 +16,6 @@ export default function App() {
 
   React.useEffect(() => {
     dispatch(clearGuesses());
-    dispatch(setSolution('hello'));
   }, [dispatch]);
 
   const onChar = (char: string) => {
@@ -30,14 +24,13 @@ export default function App() {
       currentGuess.length < MAX_WORD_LENGTH &&
       numGuesses < MAX_GUESSES
     ) {
-      console.log(`Current guess is now: ${currentGuess + char}`);
       dispatch(setCurrentGuess(currentGuess + char));
     }
   };
 
   const onDelete = () => {
-    if (!isGameOver && currentGuess.length > 0) {
-      console.log(`Current guess is now: ${currentGuess.slice(0, -1)}`);
+    if (!isGameOver && currentGuess.length > 0 && numGuesses < MAX_GUESSES) {
+      // remove the last character from the current guess
       dispatch(setCurrentGuess(currentGuess.slice(0, -1)));
     }
   };
@@ -48,8 +41,7 @@ export default function App() {
       currentGuess.length === MAX_WORD_LENGTH &&
       numGuesses < MAX_GUESSES
     ) {
-      console.log(`Submitted guess number ${numGuesses + 1}: ${currentGuess}`);
-      dispatch(addGuess(currentGuess));
+      dispatch(addGuess());
       dispatch(setCurrentGuess(''));
     }
   };
